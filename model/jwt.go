@@ -2,6 +2,12 @@ package model
 
 import "github.com/golang-jwt/jwt/v4"
 
+type SysCaptchaResponse struct {
+	CaptchaId     string `json:"captchaId"`
+	PicPath       string `json:"picPath"`
+	CaptchaLength int    `json:"captchaLength"`
+}
+
 type JwtReq struct {
 	KeyID            string  `json:"access_key" form:"access_key" query:"access_key" binding:"required"`
 	EncodedKeySecret string  `json:"security_key" form:"security_key" query:"security_key" binding:"required"`
