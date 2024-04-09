@@ -91,7 +91,7 @@ func UpdateAccessKey(aacshost string, body *model.AccessKeyUpdateReq, ID int64) 
 	if bts, err := json.Marshal(body); err != nil {
 		return nil, err
 	} else {
-		return DoReq(http.MethodPost, path.Join(aacshost, UpdateUrl), bts)
+		return DoReq(http.MethodPut, path.Join(aacshost, UpdateUrl), bts)
 	}
 }
 
