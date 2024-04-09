@@ -50,7 +50,7 @@ func (j *JWTParser) ParseToken(tokenString string) (*model.CustomClaims, error) 
 				// Token is expired
 				return nil, TokenExpired
 			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				// return nil, TokenNotValidYet // donot validate jwt start time
+				return nil, TokenNotValidYet // can do not validate jwt start time
 			} else {
 				return nil, TokenInvalid
 			}
