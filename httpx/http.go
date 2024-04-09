@@ -37,9 +37,9 @@ func DoReq(method, url string, body []byte) (*model.Response, error) {
 		}
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK {
-			return nil, errors.New("请求OneId服务失败")
-		}
+		//if resp.StatusCode != http.StatusOK {
+		//	return nil, errors.New("请求OneId服务失败")
+		//}
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
@@ -101,5 +101,5 @@ func GetCaptcha(aacshost string) (*model.Response, error) {
 		return nil, errors.New("OneidSvc is empty")
 	}
 
-	return DoReq(http.MethodGet, CaptchaUrl, nil)
+	return DoReq(http.MethodGet, path.Join(aacshost, CaptchaUrl), nil)
 }
