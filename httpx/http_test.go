@@ -1,7 +1,10 @@
 package httpx
 
 import (
+	"fmt"
 	"github.com/micro-services-roadmap/oneid-core/model"
+	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -13,4 +16,9 @@ func TestGenerateJwt(t *testing.T) {
 	if err != nil || len(jwt.Msg) == 0 {
 		return
 	}
+}
+
+func TestReplace(t *testing.T) {
+	UpdateUrl = strings.Replace(UpdateUrl, ":id", strconv.Itoa(9999), 1)
+	fmt.Println(UpdateUrl)
 }

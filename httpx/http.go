@@ -4,18 +4,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/micro-services-roadmap/oneid-core/model"
 	"io"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 )
 
 var (
-	tokenUrl    = "/auth/token"
-	updateUrl   = "/access-key/%d"
-	registerUrl = "/access-keys"
+	TokenUrl    = "/base/token"
+	CaptchaUrl  = "/base/captcha"
+	UpdateUrl   = "/access-key/:id"
+	RegisterUrl = "/access-keys"
 
 	client = &http.Client{}
 )
@@ -63,7 +64,7 @@ func GenerateJwt(aacshost string, body *model.JwtReq) (*model.Response, error) {
 	if bts, err := json.Marshal(body); err != nil {
 		return nil, err
 	} else {
-		return DoReq(http.MethodPost, path.Join(aacshost, tokenUrl), bts)
+		return DoReq(http.MethodPost, path.Join(aacshost, TokenUrl), bts)
 	}
 }
 
@@ -76,7 +77,7 @@ func Register(aacshost string, body *model.AccessKeyReq) (*model.Response, error
 	if bts, err := json.Marshal(body); err != nil {
 		return nil, err
 	} else {
-		return DoReq(http.MethodPost, path.Join(aacshost, registerUrl), bts)
+		return DoReq(http.MethodPost, path.Join(aacshost, RegisterUrl), bts)
 	}
 }
 
@@ -86,9 +87,19 @@ func UpdateAccessKey(aacshost string, body *model.AccessKeyUpdateReq, ID int64) 
 		return nil, errors.New("OneidSvc is empty")
 	}
 
+	UpdateUrl = strings.Replace(UpdateUrl, ":id", strconv.FormatInt(ID, 10), 1)
 	if bts, err := json.Marshal(body); err != nil {
 		return nil, err
 	} else {
-		return DoReq(http.MethodPost, path.Join(aacshost, fmt.Sprintf(updateUrl, ID)), bts)
+		return DoReq(http.MethodPost, path.Join(aacshost, UpdateUrl), bts)
 	}
+}
+
+func GetCaptcha(aacshost string) (*model.Response, error) {
+
+	if len(aacshost) == 0 {
+		return nil, errors.New("OneidSvc is empty")
+	}
+
+	return DoReq(http.MethodGet, CaptchaUrl, nil)
 }
