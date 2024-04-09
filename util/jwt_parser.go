@@ -18,12 +18,12 @@ type JWTParser struct {
 	SigningKey *rsa.PublicKey
 }
 
-func GetParser(path string) *JWTParser {
+func GetParser(path string) (*JWTParser, error) {
 
 	if pk, err := ReadPubKey(path); err != nil {
-		panic("读取公钥失败: " + err.Error())
+		return nil, errors.New("读取公钥失败: " + err.Error())
 	} else {
-		return &JWTParser{pk}
+		return &JWTParser{pk}, nil
 	}
 }
 
