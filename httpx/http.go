@@ -37,9 +37,9 @@ func DoReq(method, url string, body []byte) (*model.Response, error) {
 		}
 		defer resp.Body.Close()
 
-		//if resp.StatusCode != http.StatusOK {
-		//	return nil, errors.New("请求OneId服务失败")
-		//}
+		if resp.StatusCode != http.StatusOK {
+			return nil, errors.New("请求OneId服务失败(" + resp.Status + ")")
+		}
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
