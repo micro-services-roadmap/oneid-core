@@ -3,10 +3,10 @@ package model
 type AccessKeyReq struct {
 	AccessKeyUpdateReq
 
-	//Type             *int32  `json:"type" form:"type" query:"type" binding:"required"`           //  0:  用户(admin), 1: 应用
-	Subject          string `json:"subject"  form:"subject" query:"subject" binding:"required"` // consumer-name(appid) mapping to APIConsumerID
-	KeyID            string `json:"key_id" form:"key_id" query:"key_id"`                        // use for Type=0
-	EncodedKeySecret string `json:"key_secret" form:"key_secret" query:"key_secret"`            // use for Type=0
+	Subject          *string `json:"subject"  form:"subject" query:"subject" binding:"required"` // consumer-name(appid) mapping to APIConsumerID
+	Type             *int32  `json:"type" form:"type" query:"type" binding:"required"`           //  0:  用户(admin), 1: 应用
+	KeyID            *string `json:"key_id" form:"key_id" query:"key_id"`                        // use for Type=0
+	EncodedKeySecret *string `json:"key_secret" form:"key_secret" query:"key_secret"`            // use for Type=0
 }
 
 type AccessKeyUpdateReq struct {
@@ -19,4 +19,11 @@ type AccessKeyUpdateReq struct {
 	Cover    *string `json:"cover" form:"cover" query:"cover"`
 	Phone    *string `json:"phone" form:"phone" query:"phone"`
 	Email    *string `json:"email" form:"email" query:"email"`
+}
+
+type AccessKeyPageSearch struct {
+	//APIConsumerID *int64  ` json:"api_consumer_id" form:"api_consumer_id" query:"api_consumer_id"`
+	Subject  string  `json:"subject" form:"subject" query:"subject" binding:"required"`
+	Type     *int32  `json:"type" form:"type" query:"type" ` //  0:  用户(admin), 1: 应用
+	Nickname *string `json:"nickname" form:"nickname" query:"nickname"`
 }

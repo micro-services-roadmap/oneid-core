@@ -67,6 +67,28 @@ func GenRsaCertPair() {
 	fmt.Println("Public key generated and saved to public_key.pem")
 }
 
+func ReadPriKey(filePath string) (*rsa.PrivateKey, error) {
+	// Read the key file
+	keyBytes, err := os.ReadFile(path.Join(pwd, filePath))
+	if err != nil {
+		return nil, err
+	}
+
+	// Decode PEM block
+	block, _ := pem.Decode(keyBytes)
+	if block == nil {
+		return nil, fmt.Errorf("failed to decode PEM block")
+	}
+
+	// Parse RSA private key
+	privateKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+
+	return privateKey, nil
+}
+
 // ReadPubKey 	读取公钥
 func ReadPubKey(filePath string) (*rsa.PublicKey, error) {
 	// Read the key file
