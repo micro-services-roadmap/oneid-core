@@ -1,0 +1,26 @@
+package util
+
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
+
+var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MywiS2V5SUQiOiJnby1lbmNyeXB0IiwiQXVkaWVuY2UiOlsiL2VuY3J5cHQvZ28vLioiXSwiU3ViamVjdCI6ImdvLWVuY3J5cHQiLCJWYWx1ZSI6bnVsbCwiVHlwZSI6MCwiTmlja25hbWUiOiLns7vnu5_nlKjmiLciLCJHZW5kZXIiOiIiLCJDb3ZlciI6Imh0dHBzOi8vcW1wbHVzaW1nLmhlbnJvbmd5aS50b3AvZ3ZhX2hlYWRlci5qcGciLCJQaG9uZSI6IiIsIkVtYWlsIjoiIiwiQnVmZmVyVGltZSI6ODY0MDAsImlzcyI6Ik9ORUlEX0FBQ1MiLCJzdWIiOiJnby1lbmNyeXB0IiwiYXVkIjpbIi9lbmNyeXB0L2dvLy4qIl0sImV4cCI6MTcyMjM5MDg4MywibmJmIjoxNzE2MzQyODgzfQ.vaA44_VtpMzG0Sm-P-IQ60DvBlbvDio4oljDsi0Z97o11h4OciKmOjum6Wzo9-f7EgOfnZiMyXoTETBzqsJ3dHbbe7VDQgLc45e6_Uob4AzKHMAh_OmMIg9rPHG8euuZpayGsP4W31Ug_koVezUkfmiNNhPv3PtZG26TskSzEQdBph8YpwRyQyMO2DJJFO5p2mhkPQ3KuOf7pu_-plE7oC_Dveaamt47qvVmn3k1GH6SrhxURzx4vmA9vGV0FgKVG2izARUSXYhXiKvr5clSPq7DtHeGFB2glRtjOdLC7vTnBzwm9plm2HR14EekWRdLayiMhuPvZNerlvNXTIB_Kg"
+
+func TestDecodeJwt(t *testing.T) {
+	claims, err := DecodeJwt(token)
+	if err != nil {
+		panic(err)
+	}
+	assert.NotNil(t, claims)
+}
+
+func TestDecodePayload(t *testing.T) {
+
+	payload := "eyJJRCI6MywiS2V5SUQiOiJnby1lbmNyeXB0IiwiQXVkaWVuY2UiOlsiL2VuY3J5cHQvZ28vLioiXSwiU3ViamVjdCI6ImdvLWVuY3J5cHQiLCJWYWx1ZSI6bnVsbCwiVHlwZSI6MCwiTmlja25hbWUiOiLns7vnu5_nlKjmiLciLCJHZW5kZXIiOiIiLCJDb3ZlciI6Imh0dHBzOi8vcW1wbHVzaW1nLmhlbnJvbmd5aS50b3AvZ3ZhX2hlYWRlci5qcGciLCJQaG9uZSI6IiIsIkVtYWlsIjoiIiwiQnVmZmVyVGltZSI6ODY0MDAsImlzcyI6Ik9ORUlEX0FBQ1MiLCJzdWIiOiJnby1lbmNyeXB0IiwiYXVkIjpbIi9lbmNyeXB0L2dvLy4qIl0sImV4cCI6MTcyMjM5MDg4MywibmJmIjoxNzE2MzQyODgzfQ"
+	claims, err := DecodePayload(payload)
+	if err != nil {
+		panic(err)
+	}
+	assert.NotNil(t, claims)
+}

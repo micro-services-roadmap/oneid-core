@@ -12,6 +12,10 @@ import (
 	"strings"
 )
 
+const (
+	OneidCaptchaEndpoint = "/oneid/captcha"
+)
+
 var (
 	TokenUrl    = "/base/token"
 	CaptchaUrl  = "/base/captcha"
