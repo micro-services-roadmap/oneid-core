@@ -19,9 +19,19 @@ type JWTParser struct {
 	SigningKey *rsa.PublicKey
 }
 
-func GetParser(abPath string) (*JWTParser, error) {
+func GetParserOfAbPath(abPath string) (*JWTParser, error) {
 
-	if pk, err := ReadPubKey(abPath); err != nil {
+	if pk, err := ReadPubKeyOfAbPath(abPath); err != nil {
+		return nil, errors.New("读取公钥失败: " + err.Error())
+	} else {
+		return &JWTParser{pk}, nil
+	}
+}
+
+// Deprecated: GetParserOfAbPath(相对路径)
+func GetParser(path string) (*JWTParser, error) {
+
+	if pk, err := ReadPubKey(path); err != nil {
 		return nil, errors.New("读取公钥失败: " + err.Error())
 	} else {
 		return &JWTParser{pk}, nil
