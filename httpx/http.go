@@ -28,7 +28,7 @@ var (
 
 func DoReq(method, url string, body []byte) (*model.Response, error) {
 
-	if !strings.HasPrefix(url, "http") || !strings.HasPrefix(url, "https") {
+	if !strings.HasPrefix(url, "http") && !strings.HasPrefix(url, "https") {
 		url = "http://" + url
 	}
 

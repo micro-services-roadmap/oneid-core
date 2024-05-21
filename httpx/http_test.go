@@ -47,3 +47,9 @@ func TestReplace(t *testing.T) {
 	UpdateUrl = strings.Replace(UpdateUrl, ":id", strconv.Itoa(9999), 1)
 	fmt.Println(UpdateUrl)
 }
+
+func TestDoReq(t *testing.T) {
+	// _, _ = DoReq("", "http://localhost", []byte{})
+	// _, _ = DoReq("", "https://localhost", []byte{})
+	_, _ = DoReq("", "localhost", []byte{})
+}
