@@ -14,6 +14,7 @@ import (
 
 const (
 	OneidCaptchaEndpoint = "/oneid/captcha"
+	OneidTokenEndpoint   = "/oneid/token"
 )
 
 var (

@@ -67,9 +67,15 @@ func GenRsaCertPair() {
 	fmt.Println("Public key generated and saved to public_key.pem")
 }
 
-func ReadPriKey(filePath string) (*rsa.PrivateKey, error) {
+// Deprecated: ReadPriKeyOfAbPath 相对路径
+func ReadPriKey(keyPath string) (*rsa.PrivateKey, error) {
+	return ReadPriKeyOfAbPath(path.Join(pwd, keyPath))
+}
+
+// ReadPriKeyOfAbPath 绝对路径
+func ReadPriKeyOfAbPath(abPath string) (*rsa.PrivateKey, error) {
 	// Read the key file
-	keyBytes, err := os.ReadFile(path.Join(pwd, filePath))
+	keyBytes, err := os.ReadFile(abPath)
 	if err != nil {
 		return nil, err
 	}
@@ -89,10 +95,15 @@ func ReadPriKey(filePath string) (*rsa.PrivateKey, error) {
 	return privateKey, nil
 }
 
-// ReadPubKey 	读取公钥
-func ReadPubKey(filePath string) (*rsa.PublicKey, error) {
+// Deprecated: ReadPubKeyOfAbPath 读取公钥(相对路径)
+func ReadPubKey(keyPath string) (*rsa.PublicKey, error) {
+	return ReadPubKeyOfAbPath(path.Join(pwd, keyPath))
+}
+
+// ReadPubKeyOfAbPath 	读取公钥(绝对路径)
+func ReadPubKeyOfAbPath(abPath string) (*rsa.PublicKey, error) {
 	// Read the key file
-	keyBytes, err := os.ReadFile(path.Join(pwd, filePath))
+	keyBytes, err := os.ReadFile(abPath)
 	if err != nil {
 		return nil, err
 	}
