@@ -30,7 +30,7 @@ type BaseClaims struct {
 	KeyID    string
 	Audience []string // routers join by ,
 	Subject  string   // appid
-	Value    *string  //需要被签名的内容
+	Value    *string  //需要被签名的内容(JwtUser)
 	// EncodedKeySecret string
 
 	Type     int32
