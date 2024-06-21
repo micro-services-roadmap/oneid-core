@@ -9,7 +9,7 @@ import (
 )
 
 func DecodeJwt(jwt string) (*model.CustomClaims, error) {
-
+	fmt.Printf("jwt: %s\n", jwt)
 	parts := strings.Split(RemoveBearer(jwt), ".")
 	if len(parts) != 3 {
 		return nil, fmt.Errorf("invalid JWT token")
@@ -19,6 +19,7 @@ func DecodeJwt(jwt string) (*model.CustomClaims, error) {
 }
 
 func DecodePayload(payload string) (*model.CustomClaims, error) {
+	fmt.Printf("payload: %s\n", payload)
 	data, err := base64.RawURLEncoding.DecodeString(payload)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode payload[%v] due to %s", payload, err.Error())
