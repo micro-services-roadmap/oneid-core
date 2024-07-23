@@ -13,6 +13,14 @@ func (e *CodeError) Raw() error {
 }
 
 func (e *CodeError) Error() string {
+	if len(e.Msg) != 0 {
+		return e.Msg
+	}
+
+	if e.Err != nil {
+		return e.Err.Error()
+	}
+
 	return e.Msg
 }
 
