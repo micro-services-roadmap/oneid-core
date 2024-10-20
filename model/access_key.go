@@ -13,12 +13,13 @@ type AccessKeyUpdateReq struct {
 	ID int64 `json:"id" form:"id" query:"id"`
 
 	//APIConsumerID int64   ` json:"api_consumer_id" form:"api_consumer_id" query:"api_consumer_id" binding:"required"`
-	Enabled  *bool   `json:"enabled" form:"enabled" query:"enabled" binding:"required"`
-	Nickname *string `json:"nickname" form:"nickname" query:"nickname"`
-	Gender   *string `json:"gender" form:"gender" query:"gender"`
-	Cover    *string `json:"cover" form:"cover" query:"cover"`
-	Phone    *string `json:"phone" form:"phone" query:"phone"`
-	Email    *string `json:"email" form:"email" query:"email"`
+	Enabled     *bool    `json:"enabled" form:"enabled" query:"enabled" binding:"required"`
+	Nickname    *string  `json:"nickname" form:"nickname" query:"nickname"`
+	Gender      *string  `json:"gender" form:"gender" query:"gender"`
+	Cover       *string  `json:"cover" form:"cover" query:"cover"`
+	Phone       *string  `json:"phone" form:"phone" query:"phone"`
+	Email       *string  `json:"email" form:"email" query:"email"`
+	UrlPatterns []string `json:"urlPatterns" form:"urlPatterns" query:"urlPatterns" binding:"required"`
 }
 
 type AccessKeyPageSearch struct {
