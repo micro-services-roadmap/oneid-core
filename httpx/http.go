@@ -26,6 +26,29 @@ var (
 	client = &http.Client{}
 )
 
+func Get(url string, params map[string]string) (*model.Response, error) {
+	if len(params) > 0 {
+		for k, v := range params {
+			if strings.Contains(url, "?") {
+				url += "&" + k + "=" + v
+			} else {
+				url += "?" + k + "=" + v
+			}
+		}
+	}
+
+	return DoReq("GET", url, nil)
+}
+
+func Post(url string, body any) (*model.Response, error) {
+	bts, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+
+	return DoReq("POST", url, bts)
+}
+
 func DoReq(method, url string, body []byte) (*model.Response, error) {
 
 	if !strings.HasPrefix(url, "http") && !strings.HasPrefix(url, "https") {
