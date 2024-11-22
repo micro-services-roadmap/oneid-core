@@ -1,4 +1,4 @@
-package model
+package modelo
 
 type AccessKeyReq struct {
 	AccessKeyUpdateReq
