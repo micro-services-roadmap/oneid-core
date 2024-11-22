@@ -1,8 +1,7 @@
-package httpx
+package httpo
 
 import (
 	"fmt"
-	"github.com/micro-services-roadmap/oneid-core/model"
 	"strconv"
 	"strings"
 	"testing"
@@ -10,7 +9,7 @@ import (
 
 func TestGenerateJwt(t *testing.T) {
 
-	jwt, err := GenerateJwt("", &model.JwtReq{Subject: "wpp-admin",
+	jwt, err := GenerateJwt("", &modelx.JwtReq{Subject: "wpp-admin",
 		KeyID:            "058d1d5f-a23f-47bc-8e9e-d31f412786ce",
 		EncodedKeySecret: "972eff62-bd7c-4757-b332-b32b094a7aa5"})
 	if err != nil || len(jwt.Msg) == 0 {
@@ -24,7 +23,7 @@ func TestRegister(t *testing.T) {
 	var zero int32 = 0
 	KeyID := "zack"
 	EncodedKeySecret := "se"
-	m := &model.AccessKeyReq{
+	m := &modelx.AccessKeyReq{
 		Subject:          &s,
 		Type:             &zero,
 		KeyID:            &KeyID,

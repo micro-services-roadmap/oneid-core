@@ -1,10 +1,9 @@
-package httpx
+package httpo
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/micro-services-roadmap/oneid-core/model"
 	"io"
 	"net/http"
 	"path"
@@ -26,7 +25,7 @@ var (
 	client = &http.Client{}
 )
 
-func Get(url string, params map[string]string) (*model.Response, error) {
+func Get(url string, params map[string]string) (*modelx.Response, error) {
 	if len(params) > 0 {
 		for k, v := range params {
 			if strings.Contains(url, "?") {
@@ -40,7 +39,7 @@ func Get(url string, params map[string]string) (*model.Response, error) {
 	return DoReq("GET", url, nil)
 }
 
-func Post(url string, body any) (*model.Response, error) {
+func Post(url string, body any) (*modelx.Response, error) {
 	bts, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -49,7 +48,7 @@ func Post(url string, body any) (*model.Response, error) {
 	return DoReq("POST", url, bts)
 }
 
-func DoReq(method, url string, body []byte) (*model.Response, error) {
+func DoReq(method, url string, body []byte) (*modelx.Response, error) {
 
 	if !strings.HasPrefix(url, "http") && !strings.HasPrefix(url, "https") {
 		url = "http://" + url
@@ -74,7 +73,7 @@ func DoReq(method, url string, body []byte) (*model.Response, error) {
 			return nil, err
 		}
 
-		result := &model.Response{}
+		result := &modelx.Response{}
 		if err = json.Unmarshal(body, result); err != nil {
 			return nil, err
 		}
@@ -83,7 +82,7 @@ func DoReq(method, url string, body []byte) (*model.Response, error) {
 	}
 }
 
-func GenerateJwt(aacshost string, body *model.JwtReq) (*model.Response, error) {
+func GenerateJwt(aacshost string, body *modelx.JwtReq) (*modelx.Response, error) {
 
 	if len(aacshost) == 0 {
 		return nil, errors.New("OneidSvc is empty")
@@ -96,7 +95,7 @@ func GenerateJwt(aacshost string, body *model.JwtReq) (*model.Response, error) {
 	}
 }
 
-func Register(aacshost string, body *model.AccessKeyReq) (*model.Response, error) {
+func Register(aacshost string, body *modelx.AccessKeyReq) (*modelx.Response, error) {
 
 	if len(aacshost) == 0 {
 		return nil, errors.New("OneidSvc is empty")
@@ -109,7 +108,7 @@ func Register(aacshost string, body *model.AccessKeyReq) (*model.Response, error
 	}
 }
 
-func UpdateAccessKey(aacshost string, body *model.AccessKeyUpdateReq, ID int64) (*model.Response, error) {
+func UpdateAccessKey(aacshost string, body *modelx.AccessKeyUpdateReq, ID int64) (*modelx.Response, error) {
 
 	if len(aacshost) == 0 {
 		return nil, errors.New("OneidSvc is empty")
@@ -123,7 +122,7 @@ func UpdateAccessKey(aacshost string, body *model.AccessKeyUpdateReq, ID int64) 
 	}
 }
 
-func GetCaptcha(aacshost string) (*model.Response, error) {
+func GetCaptcha(aacshost string) (*modelx.Response, error) {
 
 	if len(aacshost) == 0 {
 		return nil, errors.New("OneidSvc is empty")
