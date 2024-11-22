@@ -1,14 +1,14 @@
-package util
+package utilo
 
 import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/micro-services-roadmap/oneid-core/model"
+	"github.com/micro-services-roadmap/oneid-core/modelo"
 	"strings"
 )
 
-func DecodeJwt(jwt string) (*model.CustomClaims, error) {
+func DecodeJwt(jwt string) (*modelo.CustomClaims, error) {
 	fmt.Printf("jwt: %s\n", jwt)
 	parts := strings.Split(RemoveBearer(jwt), ".")
 	if len(parts) != 3 {
@@ -18,14 +18,14 @@ func DecodeJwt(jwt string) (*model.CustomClaims, error) {
 	return DecodePayload(parts[1])
 }
 
-func DecodePayload(payload string) (*model.CustomClaims, error) {
+func DecodePayload(payload string) (*modelo.CustomClaims, error) {
 	fmt.Printf("payload: %s\n", payload)
 	data, err := base64.RawURLEncoding.DecodeString(payload)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode payload[%v] due to %s", payload, err.Error())
 	}
 
-	var claims model.CustomClaims
+	var claims modelo.CustomClaims
 	if err := json.Unmarshal(data, &claims); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal payload[%v] due to %s", payload, err.Error())
 	}

@@ -1,4 +1,4 @@
-package util
+package utilo
 
 // RemoveBearer remove token Bearer prefix if necessary
 func RemoveBearer(token string) string {

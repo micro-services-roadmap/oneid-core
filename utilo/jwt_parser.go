@@ -1,11 +1,11 @@
-package util
+package utilo
 
 import (
 	"crypto/rsa"
 	"errors"
+	"github.com/micro-services-roadmap/oneid-core/modelo"
 
 	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/micro-services-roadmap/oneid-core/model"
 )
 
 var (
@@ -48,8 +48,8 @@ func GetParserFromKey(pubKey string) (*JWTParser, error) {
 }
 
 // ParseToken 解析 token
-func (j *JWTParser) ParseToken(tokenString string) (*model.CustomClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &model.CustomClaims{}, func(token *jwt.Token) (i interface{}, e error) {
+func (j *JWTParser) ParseToken(tokenString string) (*modelo.CustomClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &modelo.CustomClaims{}, func(token *jwt.Token) (i interface{}, e error) {
 		return j.SigningKey, nil
 	})
 	if err != nil {
@@ -67,7 +67,7 @@ func (j *JWTParser) ParseToken(tokenString string) (*model.CustomClaims, error) 
 		}
 	}
 	if token != nil {
-		if claims, ok := token.Claims.(*model.CustomClaims); ok && token.Valid {
+		if claims, ok := token.Claims.(*modelo.CustomClaims); ok && token.Valid {
 			return claims, nil
 		}
 		return nil, TokenInvalid

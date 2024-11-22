@@ -1,4 +1,4 @@
-package model
+package modelo
 
 type OneidConf struct {
 	AuthenticationUrl string `mapstructure:"authentication-url"  yaml:"authentication-url" json:"authentication-url" form:"authentication-url" query:"authentication-url"` // kong

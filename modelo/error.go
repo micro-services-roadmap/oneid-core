@@ -1,4 +1,4 @@
-package model
+package modelo
 
 const defaultCode = 001_001_001
 

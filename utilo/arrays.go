@@ -1,4 +1,4 @@
-package util
+package utilo
 
 func Contains[T comparable](slice []T, element T) bool {
 	if len(slice) == 0 {
