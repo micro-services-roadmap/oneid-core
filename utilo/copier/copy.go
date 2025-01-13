@@ -150,12 +150,15 @@ var timeConverts = []copier.TypeConverter{
 		SrcType: &time.Time{},
 		DstType: copier.String,
 		Fn: func(src interface{}) (interface{}, error) {
-			if src == nil {
+			if src == nil || src.(*time.Time) == nil {
 				return "", nil
 			}
 			if vl, ok := src.(*time.Time); !ok {
 				return "", nil
 			} else {
+				if vl == nil {
+					return "", nil
+				}
 				return util.Format(vl), nil
 			}
 		},
@@ -170,6 +173,9 @@ var timeConverts = []copier.TypeConverter{
 			if vl, ok := src.(*time.Time); !ok {
 				return &str, nil
 			} else {
+				if vl == nil {
+					return &str, nil
+				}
 				val := util.Format(vl)
 				return &val, nil
 			}
@@ -199,7 +205,7 @@ var timeConverts = []copier.TypeConverter{
 		SrcType: &str,
 		DstType: time.Time{},
 		Fn: func(src interface{}) (interface{}, error) {
-			if src == nil {
+			if src == nil || src.(*string) == nil {
 				return time.Unix(0, 0), nil
 			}
 
@@ -210,7 +216,7 @@ var timeConverts = []copier.TypeConverter{
 		SrcType: &str,
 		DstType: &time.Time{},
 		Fn: func(src interface{}) (interface{}, error) {
-			if src == nil {
+			if src == nil || src.(*string) == nil {
 				return nil, nil
 			}
 
