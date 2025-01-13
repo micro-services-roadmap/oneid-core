@@ -138,17 +138,44 @@ var timeConverts = []copier.TypeConverter{
 			return util.Format(src.(time.Time)), nil
 		},
 	},
-	//{
-	//	SrcType: &time.Time{},
-	//	DstType: &str,
-	//	Fn: func(src interface{}) (interface{}, error) {
-	//		if src == nil {
-	//			return nil, nil
-	//		}
-	//		vl := util.Format(src.(*time.Time))
-	//		return &vl, nil
-	//	},
-	//},
+	{
+		SrcType: time.Time{},
+		DstType: &str,
+		Fn: func(src interface{}) (interface{}, error) {
+			val := util.Format(src.(time.Time))
+			return &val, nil
+		},
+	},
+	{
+		SrcType: &time.Time{},
+		DstType: copier.String,
+		Fn: func(src interface{}) (interface{}, error) {
+			if src == nil {
+				return "", nil
+			}
+			if vl, ok := src.(*time.Time); !ok {
+				return "", nil
+			} else {
+				return util.Format(vl), nil
+			}
+		},
+	},
+	{
+		SrcType: &time.Time{},
+		DstType: &str,
+		Fn: func(src interface{}) (interface{}, error) {
+			if src == nil {
+				return &str, nil
+			}
+			if vl, ok := src.(*time.Time); !ok {
+				return &str, nil
+			} else {
+				val := util.Format(vl)
+				return &val, nil
+			}
+		},
+	},
+
 	{
 		SrcType: copier.String,
 		DstType: time.Time{},
@@ -161,6 +188,33 @@ var timeConverts = []copier.TypeConverter{
 		DstType: &time.Time{},
 		Fn: func(src interface{}) (interface{}, error) {
 			time := util.TryParse(src.(string))
+			if time.IsZero() {
+				return nil, nil
+			} else {
+				return &time, nil
+			}
+		},
+	},
+	{
+		SrcType: &str,
+		DstType: time.Time{},
+		Fn: func(src interface{}) (interface{}, error) {
+			if src == nil {
+				return time.Unix(0, 0), nil
+			}
+
+			return util.TryParse(*src.(*string)), nil
+		},
+	},
+	{
+		SrcType: &str,
+		DstType: &time.Time{},
+		Fn: func(src interface{}) (interface{}, error) {
+			if src == nil {
+				return nil, nil
+			}
+
+			time := util.TryParse(*src.(*string))
 			if time.IsZero() {
 				return nil, nil
 			} else {
