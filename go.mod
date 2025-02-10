@@ -9,7 +9,7 @@ require (
 	github.com/jinzhu/copier v0.4.0
 	github.com/spf13/cast v1.7.1
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/crypto v0.32.0
+	golang.org/x/crypto v0.33.0
 )
 
 require (
